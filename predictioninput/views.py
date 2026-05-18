@@ -10,9 +10,7 @@ import os
 import uuid
 import pickle
 import numpy as np
-import tensorflow as tf
 
-from tensorflow.keras.preprocessing import image
 
 
 # =========================
@@ -195,7 +193,9 @@ DISEASE_MODELS = {
 @never_cache
 @login_required
 def disease_view(request):
+    import tensorflow as tf
 
+    from tensorflow.keras.preprocessing import image
     result = None
     uploaded_image_url = None
 
