@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
 <div class="disease-section">
 
-   
-
-      
+    <div class="disease-card">
 
         <form method="POST" enctype="multipart/form-data">
 
             {% csrf_token %}
 
-            <!-- MODEL SELECT -->
+            <h2>🦠 Disease Detection</h2>
 
+            <!-- MODEL SELECT -->
             <select
                 name="model_choice"
                 class="model-select"
@@ -34,9 +34,7 @@
 
             </select>
 
-         <div class="disease-card">
             <!-- FILE UPLOAD -->
-            <h2>🦠 Disease Detection</h2>
             <label class="file-upload">
 
                 <input
@@ -52,9 +50,7 @@
 
             </label>
 
-
             <!-- IMAGE PREVIEW -->
-
             <div class="preview-container">
 
                 <img
@@ -72,23 +68,17 @@
 
             </div>
 
-
             <!-- BUTTON -->
-
             <button
                 type="submit"
                 class="predict-btn"
             >
-
                 Detect Disease
-
             </button>
 
         </form>
 
-
         <!-- RESULT -->
-
         {% if result %}
 
         <div class="result-box">
@@ -102,23 +92,26 @@
     </div>
 
 </div>
+
+<!-- MODEL INFO -->
 <div class="model-info-section">
 
     <h1>Model Information</h1>
 
     <div class="model-card-container">
 
-        <!-- POTATO TOMATO CARD -->
+        <!-- POTATO TOMATO -->
         <div class="model-card">
+
             <h2>🥔🍅 Potato & Tomato Model</h2>
 
             <p><strong>Training Accuracy:</strong> 88.71%</p>
             <p><strong>Validation Accuracy:</strong> 86.13%</p>
             <p><strong>Epochs:</strong> 10</p>
             <p><strong>Image Size:</strong> 128 × 128</p>
-            <p><strong>Model File:</strong> potatotomato_model.keras</p>
 
             <h3>Classes</h3>
+
             <ul>
                 <li>Potato___Early_blight</li>
                 <li>Potato___healthy</li>
@@ -134,19 +127,21 @@
                 <li>Tomato___Tomato_mosaic_virus</li>
                 <li>Tomato___Tomato_Yellow_Leaf_Curl_Virus</li>
             </ul>
+
         </div>
 
-        <!-- APPLE MAIZE CARD -->
+        <!-- APPLE MAIZE -->
         <div class="model-card">
+
             <h2>🍎🌽 Apple & Maize Model</h2>
 
             <p><strong>Training Accuracy:</strong> 96.04%</p>
             <p><strong>Validation Accuracy:</strong> 95.25%</p>
             <p><strong>Epochs:</strong> 10</p>
             <p><strong>Image Size:</strong> 128 × 128</p>
-            <p><strong>Model File:</strong> appleandmaize_model.keras</p>
 
             <h3>Classes</h3>
+
             <ul>
                 <li>Apple___Apple_scab</li>
                 <li>Apple___Black_rot</li>
@@ -157,19 +152,21 @@
                 <li>Corn_(maize)___healthy</li>
                 <li>Corn_(maize)___Northern_Leaf_Blight</li>
             </ul>
+
         </div>
 
-        <!-- WHEAT RICE CARD -->
+        <!-- WHEAT RICE -->
         <div class="model-card">
+
             <h2>🌾🍚 Wheat & Rice Model</h2>
 
             <p><strong>Training Accuracy:</strong> 65.44%</p>
             <p><strong>Validation Accuracy:</strong> 72.12%</p>
             <p><strong>Epochs:</strong> 15</p>
             <p><strong>Image Size:</strong> 128 × 128</p>
-            <p><strong>Model File:</strong> wheatandrice_model.keras</p>
 
             <h3>Classes</h3>
+
             <ul>
                 <li>Bacterial Leaf Blight</li>
                 <li>Brown Spot</li>
@@ -182,23 +179,19 @@
                 <li>Sheath Blight</li>
                 <li>Wheat Loose Smut</li>
             </ul>
+
         </div>
 
     </div>
 
 </div>
 
-
 <!-- JAVASCRIPT -->
-
 <script>
 
 const input = document.getElementById("imageInput");
-
 const preview = document.getElementById("preview");
-
 const removeBtn = document.getElementById("removeBtn");
-
 
 input.onchange = function(e) {
 
@@ -213,7 +206,6 @@ input.onchange = function(e) {
         removeBtn.style.display = "block";
     }
 };
-
 
 removeBtn.onclick = function() {
 
