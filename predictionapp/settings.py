@@ -23,9 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$o8)5f-o%m=oopupuo#z#7tp4efjf+=wh7v=v_wl3tc&9i1a8v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ "agrovision-ai-3mjo.onrender.com",
+                 "localhost",
+                 "127.0.0.1",]
 
 
 # Application definition
