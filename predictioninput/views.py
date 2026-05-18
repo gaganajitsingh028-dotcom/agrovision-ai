@@ -42,48 +42,21 @@ def home(request):
 @never_cache
 @login_required
 def yield_view(request):
-    yield_model_path = os.path.join(
-    settings.BASE_DIR,
-    "ml_models",
-    "yield_model.pkl"
-     )
+    result = None
 
+    yield_model_path = os.path.join(settings.BASE_DIR, "ml_models", "yield_model.pkl")
+    area_encoder_path = os.path.join(settings.BASE_DIR, "ml_models", "area_encoder.pkl")
+    item_encoder_path = os.path.join(settings.BASE_DIR, "ml_models", "item_encoder.pkl")
 
+    le_area = pickle.load(open(area_encoder_path, "rb"))
+    le_item = pickle.load(open(item_encoder_path, "rb"))
 
-
-# =========================
-# LOAD AREA ENCODER
-# =========================
-
-    area_encoder_path = os.path.join(
-    settings.BASE_DIR,
-    "ml_models",
-    "area_encoder.pkl"
-     )
-
-
-
-
-# =========================
-# LOAD ITEM ENCODER
-# =========================
-
-    item_encoder_path = os.path.join(
-    settings.BASE_DIR,
-    "ml_models",
-    "item_encoder.pkl"
-     )
-    
     area_list = list(le_area.classes_)
     item_list = list(le_item.classes_)
-    le_area = pickle.load(open(area_encoder_path, "rb"))  
-    yield_model = pickle.load(open(yield_model_path, "rb"))
-    le_item = pickle.load(open(item_encoder_path, "rb"))
-    result = None
-    
-    if request.method == "POST":
 
+    if request.method == "POST":
         try:
+            yield_model = pickle.load(open(yield_model_path, "rb"))
 
             rainfall = float(request.POST.get("rainfall"))
             temp = float(request.POST.get("temp"))
@@ -93,11 +66,9 @@ def yield_view(request):
             area = request.POST.get("area")
             item = request.POST.get("item")
 
-            # Encode values
             area_encoded = le_area.transform([area])[0]
             item_encoded = le_item.transform([item])[0]
 
-            # Predict yield
             prediction = yield_model.predict([[
                 area_encoded,
                 item_encoded,
@@ -109,7 +80,6 @@ def yield_view(request):
 
             result = str(round(prediction[0], 2)) + " hg/ha yield"
 
-            # Save yield prediction
             YieldPrediction.objects.create(
                 rainfall=rainfall,
                 temperature=temp,
@@ -123,15 +93,11 @@ def yield_view(request):
         except Exception as e:
             result = str(e)
 
-    return render(
-        request,
-        "yield.html",
-        {
-            "result": result,
-            "area_list": area_list,
-            "item_list": item_list,
-        }
-    )
+    return render(request, "yield.html", {
+        "result": result,
+        "area_list": area_list,
+        "item_list": item_list,
+    })
 
 # =========================
 DISEASE_MODELS = {
