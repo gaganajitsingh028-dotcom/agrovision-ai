@@ -33,11 +33,22 @@ def home(request):
 # LOAD YIELD MODEL
 # =========================
 
-yield_model_path = os.path.join(
+
+
+
+
+# =========================
+# YIELD PREDICTION VIEW
+# =========================
+
+@never_cache
+@login_required
+def yield_view(request):
+    yield_model_path = os.path.join(
     settings.BASE_DIR,
     "ml_models",
     "yield_model.pkl"
-)
+     )
 
 
 
@@ -46,11 +57,11 @@ yield_model_path = os.path.join(
 # LOAD AREA ENCODER
 # =========================
 
-area_encoder_path = os.path.join(
+    area_encoder_path = os.path.join(
     settings.BASE_DIR,
     "ml_models",
     "area_encoder.pkl"
-)
+     )
 
 
 
@@ -59,23 +70,14 @@ area_encoder_path = os.path.join(
 # LOAD ITEM ENCODER
 # =========================
 
-item_encoder_path = os.path.join(
+    item_encoder_path = os.path.join(
     settings.BASE_DIR,
     "ml_models",
     "item_encoder.pkl"
-)
-
-
-
-area_list = list(le_area.classes_)
-item_list = list(le_item.classes_)
-# =========================
-# YIELD PREDICTION VIEW
-# =========================
-
-@never_cache
-@login_required
-def yield_view(request):
+     )
+    
+    area_list = list(le_area.classes_)
+    item_list = list(le_item.classes_)
     le_area = pickle.load(open(area_encoder_path, "rb"))  
     yield_model = pickle.load(open(yield_model_path, "rb"))
     le_item = pickle.load(open(item_encoder_path, "rb"))
