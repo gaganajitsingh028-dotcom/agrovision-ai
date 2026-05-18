@@ -39,7 +39,7 @@ yield_model_path = os.path.join(
     "yield_model.pkl"
 )
 
-yield_model = pickle.load(open(yield_model_path, "rb"))
+
 
 
 # =========================
@@ -52,7 +52,7 @@ area_encoder_path = os.path.join(
     "area_encoder.pkl"
 )
 
-le_area = pickle.load(open(area_encoder_path, "rb"))
+
 
 
 # =========================
@@ -65,7 +65,7 @@ item_encoder_path = os.path.join(
     "item_encoder.pkl"
 )
 
-le_item = pickle.load(open(item_encoder_path, "rb"))
+
 
 area_list = list(le_area.classes_)
 item_list = list(le_item.classes_)
@@ -76,7 +76,9 @@ item_list = list(le_item.classes_)
 @never_cache
 @login_required
 def yield_view(request):
-
+    le_area = pickle.load(open(area_encoder_path, "rb"))  
+    yield_model = pickle.load(open(yield_model_path, "rb"))
+    le_item = pickle.load(open(item_encoder_path, "rb"))
     result = None
     
     if request.method == "POST":
@@ -310,9 +312,7 @@ def disease_view(request):
     )
 
 
-# =========================
-# DASHBOARD VIEW
-# =========================
+
 
 @never_cache
 @login_required
@@ -320,9 +320,7 @@ def dashboard_view(request):
     return render(request, "dashboard.html")
 
 
-# =========================
-# REGISTER VIEW
-# =========================
+
 
 def register_view(request):
 
