@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <div class="dashboard-card">
+
+        <div class="dashboard-icon">
+            📊
+        </div>
+
+        <h2>Power BI Dashboard</h2>
+
+        <p>
+            Open the AgroVision AI analytical dashboard
+            in Power BI Desktop for complete visualization
+            and live data insights.
+        </p>
+
+        <a href="{% static 'agrovisionai.pbix' %}"
+           class="dashboard-btn"
+           download>
+
+           Download Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

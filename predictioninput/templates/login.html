@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - AgroVision AI</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<div class="login-section">
+    <div class="login-card">
+
+        <h2>🌾 AgroVision Login</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">Login</button>
+        </form>
+
+        {% if form.errors %}
+        <div class="login-error">
+            Invalid username or password
+        </div>
+        {% endif %}
+      <p style="text-align:center; margin-top:15px;">
+    Don’t have an account?
+    <a href="{% url 'register' %}">Register</a>
+</p>
+    </div>
+</div>
+
+</body>
+</html>

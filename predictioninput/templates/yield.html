@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="yield-section">
+
+    <div class="yield-card">
+
+        <h2>🌾 Yield Prediction</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Rainfall -->
+            <div class="form-group">
+                <label>Average Rainfall</label>
+                <input type="number" step="0.01" name="rainfall" placeholder="Enter Rainfall" required>
+            </div>
+
+            <!-- Temperature -->
+            <div class="form-group">
+                <label>Average Temperature</label>
+                <input type="number" step="0.01" name="temp" placeholder="Enter Temprature" required>
+            </div>
+
+            <!-- Pesticides -->
+            <div class="form-group">
+                <label>Pesticides</label>
+                <input type="number" step="0.01" name="pesticides" placeholder="Enter Pesticides in tones" required>
+            </div>
+
+            <!-- AREA DROPDOWN -->
+            <div class="form-group">
+                <label>Area</label>
+
+                <select name="area" required>
+
+                    <option value="">
+                        Select Area
+                    </option>
+
+                    {% for area in area_list %}
+                        <option value="{{ area }}">
+                            {{ area }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <!-- ITEM DROPDOWN -->
+            <div class="form-group">
+                <label>Crop Item</label>
+
+                <select name="item" required>
+
+                    <option value="">
+                        Select Crop Item
+                    </option>
+
+                    {% for item in item_list %}
+                        <option value="{{ item }}">
+                            {{ item }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <!-- YEAR -->
+            <div class="form-group">
+                <label>Year</label>
+                <input type="number" name="year" placeholder="Enter Year" required>
+            </div>
+
+            <!-- BUTTON -->
+            <button type="submit" class="submit-btn">
+                Predict
+            </button>
+
+        </form>
+
+        <!-- RESULT -->
+        {% if result %}
+        <div class="result-box">
+            Predicted Yield: {{ result }}
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- MODEL INFO CARD -->
+
+<div class="model-info-card">
+
+    <h3>Model Information</h3>
+
+    <div class="info-row">
+        <span>Model Used</span>
+        <strong>Random Forest Regressor</strong>
+    </div>
+
+    <div class="info-row">
+        <span>Training Split</span>
+        <strong>80% Train / 20% Test</strong>
+    </div>
+
+    <div class="info-row">
+        <span>Dataset Used</span>
+        <strong>Agricultural Crop Yield Dataset</strong>
+    </div>
+
+    <div class="info-row">
+        <span>R² Score</span>
+        <strong>98.69%</strong>
+    </div>
+
+    <div class="info-row">
+        <span>Trained Till Year</span>
+        <strong>2013</strong>
+    </div>
+
+</div>
+
+{% endblock %}

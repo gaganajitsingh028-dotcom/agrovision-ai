@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AgroVision AI</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<div class="navbar">
+    <h2>🌾 AgroVision AI</h2>
+
+    <div>
+         <a href="{% url 'landing_page' %}">Landingpage</a>
+        <a href="{% url 'home' %}">Home</a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'yield' %}">Yield</a>
+            <a href="{% url 'disease' %}">Disease</a>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+    
+   
+</div>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<div class="footer">
+    © 2026 AgroVision AI
+</div>
+
+</body>
+</html>
